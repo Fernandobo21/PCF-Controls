@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="CosmosControlNameSpace" 
+  constructor="CosmosControl" 
+  version="0.0.4"
+  display-name-key="CosmosDB Control" 
+  description-key="This controls lets you fetch data from your cosmos db database" 
+  control-type="standard">
+    <type-group name="ConditionTypes">
+      <type>SingleLine.Text</type>
+      <type>Whole.None</type>
+    </type-group>
+    <property name="field" display-name-key="field" description-key="" of-type="SingleLine.Text" usage="bound" required="true" />
+    <property name="masterKey" display-name-key="Master Key" description-key="Here goes your Master Key of your CosmosDB" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="endpoint" display-name-key="End Point" description-key="Here goes the Url of your CosmosDB" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="dataBase" display-name-key="Data Base" description-key="Here goes your Data Base of your CosmosDB" of-type="SingleLine.Text" usage="input" usage="bound" required="true" />
+    <property name="container" display-name-key="Container" description-key="Here goes the container name of your CosmosDB data base" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="partition" display-name-key="Partition Type" description-key="Here goes the primary key of your CosmosDB" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="query" display-name-key="Query" description-key="Here goes the Query to fetch the data" of-type="SingleLine.TextArea" usage="input" required="true" />
+    
+    <property name="condition1" display-name-key="Condition 1" description-key="Here put your numeric condition for the {0} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
+    <property name="condition2" display-name-key="Condition 2" description-key="Here put your numeric condition for the {1} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
+    <property name="condition3" display-name-key="Condition 3" description-key="Here put your numeric condition for the {2} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+    </resources>
+  </control>
+</manifest>

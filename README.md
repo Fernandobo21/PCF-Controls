@@ -22,4 +22,4 @@ The format of the query must have a "TOP 1" on the select and it has to be a sim
 SELECT TOP 1 c.fieldA, c.fieldB, c.fieldC, c.fieldD FROM c WHERE c.fieldA='{0}' and c.fieldB='{1}' ORDER BY c._ts DESC
 ## Adding CORS
 To add your D365 environment to the CORS:
-![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Update-CORS.png", "Add D365 to CORS")
+![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Update-CORS.png, "Add D365 to CORS")

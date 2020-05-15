@@ -17,8 +17,7 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 		_condition3: null,
 		_query: "",
 		_isActive: false,
-		_request: "",
-		_response: ""
+		_response: "",
 	};
 	private config = {
 		endpoint: "",
@@ -43,7 +42,7 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 		this.config.databaseId = context.parameters.dataBase.raw || "";
 		this.config.containerId = context.parameters.container.raw || "";
 		this.config.partitionKey = { kind: "Hash", paths: ["/" + context.parameters.partition.raw] }
-		debugger;
+		
 		this.props = {
 			_condition1: (context.parameters.condition1.type == "Whole.None") ? context.parameters.condition1.raw || 0 : context.parameters.condition1.raw || "",
 			_condition2: (context.parameters.condition2.type == "Whole.None") ? context.parameters.condition2.raw || 0 : context.parameters.condition2.raw || "",
@@ -67,8 +66,7 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 	private renderElement(): void {
 		ReactDOM.render(
 			React.createElement(
-				CosmosData,
-				this.props
+				CosmosData,	this.props
 			),
 			this._container
 		);
@@ -94,22 +92,27 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
         console.log("Entering loadData");
         const { endpoint, key, databaseId, containerId } = this.config;
         const { CosmosClient } = cosmos;
-        const client = new CosmosClient({ endpoint: endpoint, key: key, connectionPolicy: {
-            enableEndpointDiscovery: true
-          } });
+        const client = new CosmosClient({ endpoint: endpoint, key: key, connectionPolicy: { enableEndpointDiscovery: true }});
         var database = client.database(databaseId);
 		var container = database.container(containerId);
 		var querySpec = { query: inputQuery };
+		var queryAlias = inputQuery.substring((inputQuery.toUpperCase().search("FROM") + 4), inputQuery.toUpperCase().search("WHERE")).trim();
+		var attributes = this.mapAttributes(inputQuery, queryAlias, inputQuery.toUpperCase().search("FROM"));
 		//TODO: get the fields from the query
         const result = await container.items.query(querySpec).fetchAll();
         console.log("Result: " + result.resources.length);
         if ((result.resources != null) && (result.resources.length !== 0))
         {
+			this.props._response = "";
             for (var i = 0; i < result.resources.length; i++)
             {                
-                var resource = result.resources[i];
-                this.props._request = (resource.Request != null) ? JSON.stringify(resource.Request) : (resource.RiskRequest != null) ? JSON.stringify(resource.RiskRequest) : "";
-                this.props._response = (resource.Response != null) ? JSON.stringify(resource.Response) : (resource.RiskResponse != null) ? JSON.stringify(resource.RiskResponse) : "";
+				var resource = result.resources[i];
+				//no Json in Field
+				//TODO: if no json in field, need only to parse the reource value
+				this.props._response = [];
+				attributes.forEach(att => {
+					if (resource[att] !== null && resource[att] !== undefined) this.props._response.push(resource[att]);
+				});
                 this.props._isActive = true;
             }
         }
@@ -121,5 +124,26 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 		if ((NC2 != null) && ((NC2 != 0) || (NC2 != ""))) finalQuery = finalQuery.replace('{1}', NC2.toString());
 		if ((NC3 != null) && ((NC3 != 0) || (NC3 != ""))) finalQuery = finalQuery.replace('{2}', NC3.toString());
 		return finalQuery;
+	}
+	private mapAttributes(query:string, alias:string, limit:number)
+	{
+		var attributes = [];
+		var ia = 0;
+		var finished = false
+		do {
+			var att = query.substring(query.search(alias) + (alias.length + 1), (query.search(",") == -1) ? query.toUpperCase().search("FROM") : query.search(",")).trim();
+			if ((att != null) && (att != ""))
+			{
+				attributes[ia] = att;
+				ia++;
+				query = query.substr(query.search(att) + (att.length + 1));
+				if (query.toUpperCase().search("FROM") == 0)
+					finished = true;
+				
+			}
+			else finished = true;
+		}  
+		while (finished != true);
+		return attributes;
 	}
 }

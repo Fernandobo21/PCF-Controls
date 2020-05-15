@@ -8,14 +8,7 @@ class Cosmosdata extends React.Component<any> {
         console.log("Entering render");
         return (
             <div style={{ flex: 1, display:'flex',  flexDirection: 'row', textAlign: 'left' }}>
-                <div style={{ flexDirection: 'row' }}>
-                    {this.props._isActive ? <label>Request</label> : null }
-                    {this.props._isActive ? <JSONPrettier data={this.props._request}></JSONPrettier> : null }
-                </div>
-                <div style={{ flexDirection: 'row' }}>
-                    {this.props._isActive ? <label>Response</label> : null }
-                    {this.props._isActive ? <JSONPrettier data={this.props._response}></JSONPrettier> : null }
-                </div>
+                <div style={{ flexDirection: 'row' }}><JSONPrettier data={this.props._response}></JSONPrettier></div>
             </div>
         );
     }

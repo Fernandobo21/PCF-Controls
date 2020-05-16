@@ -10,7 +10,7 @@ This control has been created to retrieve data from any cosmodb environment and 
 2. Add your D365 environment where you will use this control to the CORS policies of the Cosmos DB resource. (See the explanation below)
 ## Input Parameters
 - Field --> It's the D365 form field were we will put the control. (Required)
-- Master Key --> Here goes your Key of your CosmosDB, with the read-only key will work for read only. (Required)
+- Master Key --> Here goes your Key of your CosmosDB, with the read-only key will work. (Required)
 - End Point --> Here goes the Url of your CosmosDB. (Required)
 - Data Base --> Here goes the literal Data Base of your CosmosDB. (Required)
 - Container --> Here goes the literal container name of your CosmosDB data base. (Required).
@@ -26,7 +26,9 @@ To add your D365 environment to the CORS:
 ## Adding the control
 Once you fill all the fields, you'll find a problem at the "Query" field.
 There's a known bug for the single text fields that does not let you put more than 100 characters.
-### Workarround 1 (Easiest for develepers)
-If you open your developer tools (normally F12 key), select the 
+### Workarround 1 (Easiest for developers)
+If you open your developer tools (normally F12 key), select the field and change the "maxlength" property.
+![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Max-Length-Change.png "Selecting the TextArea")
+![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/maxlength-property.png "maxlength property")
 ### Workarround 2
 You can always create a field (TextArea) in the entity, with a maximun length of 4000, put here your query and then bind the field to the parameter.

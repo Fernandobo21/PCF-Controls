@@ -17,9 +17,16 @@ This control has been created to retrieve data from any cosmodb environment and 
 - Partition Type --> Here goes the partition type key of your CosmosDB. (Required).
 - Query --> Here goes the Query to fetch the data. (Required)
 ## Query Format
-The format of the query must have a "TOP 1" on the select and it has to be a simple query, not a complex one. To make sure that the query works test it before on the query tab of your cosmos db environment.
+The format of the query must have a "TOP 1" on the select and it has to be a simple query, not a complex one. To make sure that the query works test it before on the query tab of your cosmos db environment. For the conditions, at the moment, it will only accept up to three conditions. Planing to make it up to 10.
 ### Query Example
 SELECT TOP 1 c.fieldA, c.fieldB, c.fieldC, c.fieldD FROM c WHERE c.fieldA='{0}' and c.fieldB='{1}' ORDER BY c._ts DESC
 ## Adding CORS
 To add your D365 environment to the CORS:
 ![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Update-CORS.png "Add D365 to CORS")
+## Adding the control
+Once you fill all the fields, you'll find a problem at the "Query" field.
+There's a known bug for the single text fields that does not let you put more than 100 characters.
+### Workarround 1 (Easiest for develepers)
+If you open your developer tools (normally F12 key), select the 
+### Workarround 2
+You can always create a field (TextArea) in the entity, with a maximun length of 4000, put here your query and then bind the field to the parameter.

@@ -26,9 +26,9 @@ To add your D365 environment to the CORS:
 ## Adding the control
 Once you fill all the fields, you'll find a problem at the "Query" field.
 There's a known bug for the single text fields that does not let you put more than 100 characters.
-### Workarround 1 (Easiest for developers)
+### Workaround 1 (Easiest for developers)
 If you open your developer tools (normally F12 key), select the field and change the "maxlength" property.
 ![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Max-Length-Change.png "Selecting the TextArea")
 ![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/maxlength-property.png "maxlength property")
-### Workarround 2
+### Workaround 2
 You can always create a field (TextArea) in the entity, with a maximun length of 4000, put here your query and then bind the field to the parameter.

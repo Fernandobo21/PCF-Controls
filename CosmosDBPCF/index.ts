@@ -109,9 +109,9 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 				var resource = result.resources[i];
 				//no Json in Field
 				//TODO: if no json in field, need only to parse the reource value
-				this.props._response = [];
+				this.props._response = "";
 				attributes.forEach(att => {
-					if (resource[att] !== null && resource[att] !== undefined) this.props._response.push(resource[att]);
+					if (resource[att] !== null && resource[att] !== undefined) this.props._response = JSON.stringify(resource);
 				});
                 this.props._isActive = true;
             }

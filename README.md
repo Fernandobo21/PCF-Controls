@@ -32,3 +32,13 @@ If you open your developer tools (normally F12 key), select the field and change
 ![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/maxlength-property.png "maxlength property")
 ### Workaround 2
 You can always create a field (TextArea) in the entity, with a maximun length of 4000, put here your query and then bind the field to the parameter.
+## Example
+I've already created an item in the container of my Cosmos DB like this:
+![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Cosmos-DB-Data(Azure-Data-Explorer).png "Cosmos DB Data in Azure")
+I will use the this query for the example:
+SELECT TOP 1 c.fieldA, c.fieldB FROM c WHERE c.fieldA='{0}' and c.fieldB='{1}' ORDER BY c._ts DESC
+{0}: the value of the condition 1 wich is 'valueA'.
+{1}: the value of the condition 2 wich is 'valueB'.
+![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Conditions.png "Condition 1 and Condition 2")
+And as the image showns you can see the exacta data in the control.
+![alt text](https://github.com/Fernandobo21/PCFControls/blob/master/assets/Cosmos-DB-Data(D365).png "Cosmos DB Data in Azure")

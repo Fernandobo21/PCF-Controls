@@ -16,6 +16,9 @@ This control has been created to retrieve data from any cosmodb environment and 
 - Container --> Here goes the literal container name of your CosmosDB data base. (Required).
 - Partition Type --> Here goes the partition type key of your CosmosDB. (Required).
 - Query --> Here goes the Query to fetch the data. (Required)
+- Condition 1 --> Here put your condition (Text or Numeric) for the {0} value of your query.
+- Condition 2 --> Here put your condition (Text or Numeric) for the {1} value of your query.
+- Condition 3 --> Here put your condition (Text or Numeric) for the {2} value of your query.
 ## Query Format
 The format of the query must have a "TOP 1" on the select and it has to be a simple query, not a complex one. To make sure that the query works test it before on the query tab of your cosmos db environment. For the conditions, at the moment, it will only accept up to three conditions. Planing to make it up to 10.
 ### Query Example

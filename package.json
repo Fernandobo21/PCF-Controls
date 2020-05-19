@@ -16,6 +16,7 @@
     "react-json-pretty": "^2.2.0"
   },
   "devDependencies": {
+    "css-loader": "^3.5.3",
     "pcf-scripts": "^1",
     "pcf-start": "^1"
   }

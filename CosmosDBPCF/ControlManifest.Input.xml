@@ -21,6 +21,8 @@
     <property name="condition1" display-name-key="Condition 1" description-key="Here put your condition (Text or Numeric) for the {0} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
     <property name="condition2" display-name-key="Condition 2" description-key="Here put your condition (Text or Numeric) for the {1} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
     <property name="condition3" display-name-key="Condition 3" description-key="Here put your condition (Text or Numeric) for the {2} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
+    <property name="condition4" display-name-key="Condition 4" description-key="Here put your condition (Text or Numeric) for the {3} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
+    <property name="condition5" display-name-key="Condition 5" description-key="Here put your condition (Text or Numeric) for the {4} value of your query" of-type-group="ConditionTypes" usage="input" required="false" />
     <resources>
       <code path="index.ts" order="1"/>
     </resources>

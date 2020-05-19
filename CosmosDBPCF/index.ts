@@ -15,6 +15,8 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 		_condition1: null,
 		_condition2: null,
 		_condition3: null,
+		_condition4: null,
+		_condition5: null,
 		_query: "",
 		_isActive: false,
 		_response: "",
@@ -47,6 +49,8 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 			_condition1: (context.parameters.condition1.type == "Whole.None") ? context.parameters.condition1.raw || 0 : context.parameters.condition1.raw || "",
 			_condition2: (context.parameters.condition2.type == "Whole.None") ? context.parameters.condition2.raw || 0 : context.parameters.condition2.raw || "",
 			_condition3: (context.parameters.condition3.type == "Whole.None") ? context.parameters.condition3.raw || 0 : context.parameters.condition3.raw || "",
+			_condition4: (context.parameters.condition4.type == "Whole.None") ? context.parameters.condition4.raw || 0 : context.parameters.condition4.raw || "",
+			_condition5: (context.parameters.condition5.type == "Whole.None") ? context.parameters.condition5.raw || 0 : context.parameters.condition5.raw || ""
 		}
 		this.props._query = context.parameters.query.raw || "";
 	}
@@ -56,7 +60,7 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 	 */
 	public async updateView(context: ComponentFramework.Context<IInputs>): Promise<void>
 	{
-		var query = this.fillQuery(this.props._query, this.props._condition1, this.props._condition2, this.props._condition3);
+		var query = this.fillQuery(this.props._query, this.props._condition1, this.props._condition2, this.props._condition3, this.props._condition4, this.props._condition5);
 		await this.loadData(this.props._fileId, query);
 		this.renderElement();
 	}
@@ -97,8 +101,7 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
 		var container = database.container(containerId);
 		var querySpec = { query: inputQuery };
 		var queryAlias = inputQuery.substring((inputQuery.toUpperCase().search("FROM") + 4), inputQuery.toUpperCase().search("WHERE")).trim();
-		var attributes = this.mapAttributes(inputQuery, queryAlias, inputQuery.toUpperCase().search("FROM"));
-		//TODO: get the fields from the query
+		//var attributes = this.mapAttributes(inputQuery, queryAlias, inputQuery.toUpperCase().search("FROM"));
         const result = await container.items.query(querySpec).fetchAll();
         console.log("Result: " + result.resources.length);
         if ((result.resources != null) && (result.resources.length !== 0))
@@ -107,22 +110,19 @@ export class CosmosControl implements ComponentFramework.StandardControl<IInputs
             for (var i = 0; i < result.resources.length; i++)
             {                
 				var resource = result.resources[i];
-				//no Json in Field
-				//TODO: if no json in field, need only to parse the reource value
-				this.props._response = "";
-				attributes.forEach(att => {
-					if (resource[att] !== null && resource[att] !== undefined) this.props._response = JSON.stringify(resource);
-				});
+				this.props._response = JSON.stringify(resource);
                 this.props._isActive = true;
             }
         }
 	}
-	private fillQuery(queryToFill:string, NC1:any, NC2:any, NC3:any)
+	private fillQuery(queryToFill:string, NC1:any, NC2:any, NC3:any, NC4:any, NC5:any)
 	{
 		var finalQuery = queryToFill;
 		if ((NC1 != null) && ((NC1 != 0) || (NC1 != ""))) finalQuery = finalQuery.replace('{0}', NC1.toString());
 		if ((NC2 != null) && ((NC2 != 0) || (NC2 != ""))) finalQuery = finalQuery.replace('{1}', NC2.toString());
 		if ((NC3 != null) && ((NC3 != 0) || (NC3 != ""))) finalQuery = finalQuery.replace('{2}', NC3.toString());
+		if ((NC4 != null) && ((NC4 != 0) || (NC4 != ""))) finalQuery = finalQuery.replace('{3}', NC4.toString());
+		if ((NC5 != null) && ((NC5 != 0) || (NC5 != ""))) finalQuery = finalQuery.replace('{4}', NC5.toString());
 		return finalQuery;
 	}
 	private mapAttributes(query:string, alias:string, limit:number)
